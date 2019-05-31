@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 MAINTAINER TG <dewly_tg@163.com>
 
 RUN apt-get update; \
-    sudo apt-get install apache2 subversion subversion-tools libapache2-svn libcgi-session-perl -y
+    apt-get install apache2 subversion subversion-tools libapache2-svn libcgi-session-perl -y
 
 RUN echo 'LoadModule cgid_module /usr/lib/apache2/modules/mod_cgid.so' >> /etc/apache2/apache2.conf
 
