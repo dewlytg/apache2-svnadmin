@@ -28,5 +28,3 @@ EXPOSE 80
 # By default, simply start apache.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
 
-# Tag for docker image
-TAG dewlytg/apache2-svnadmin:1.0.1
