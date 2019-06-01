@@ -7,10 +7,10 @@ RUN apt-get update; \
 
 RUN echo 'LoadModule cgid_module /usr/lib/apache2/modules/mod_cgid.so' >> /etc/apache2/apache2.conf
 
-RUN mkdir -p /var/lib/svn/{conf,repos,cgi}; \
-    touch /var/lib/svn/conf/davsvn.passwd; \
-    touch /var/lib/svn/conf/davsvn.passwd; \
-    chown -R www-data:www-data /var/lib/svn; 
+RUN bash -c 'mkdir -p /var/lib/svn/{conf,repos,cgi}'
+RUN touch /var/lib/svn/conf/davsvn.passwd
+RUN touch /var/lib/svn/conf/davsvn.passwd
+RUN chown -R www-data:www-data /var/lib/svn
 
 COPY admin.cgi  /var/lib/svn/cgi/
 
@@ -27,3 +27,6 @@ EXPOSE 80
 
 # By default, simply start apache.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
+
+# Tag for docker image
+TAG dewlytg/apache2-svnadmin:1.0.1
