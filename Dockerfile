@@ -48,10 +48,9 @@ RUN echo '\n\
     AuthUserFile /var/lib/svn/conf/davsvn.passwd\n\
     Require valid-user\n\
     AuthzSVNAccessFile /var/lib/svn/conf/davsvn.authz\n\
- </location>\n'\
+ </location>\n\
 
-
-echo '\n\
+\n\
 ScriptAlias /svnadmin /var/lib/svn/cgi/admin.cgi\n\
 <location /${SVN_ADMIN_LOCATION}>\n\
     Options +ExecCGI\n\
