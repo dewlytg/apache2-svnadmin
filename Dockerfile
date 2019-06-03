@@ -82,6 +82,7 @@ RUN chown -R root:crontab /var/spool/cron/crontabs/root \
 # 创建 log 文件
 RUN touch /var/log/cron.log
 
+ADD entrypoint.sh .
 # 在 entrypoint.sh 脚本里加入启动 apache 和 crontab 的相关命令
 RUN chmod 777 ./entrypoint.sh
 
