@@ -34,6 +34,8 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
 ENV SVN_LOCATION svn
 ENV SVN_ADMIN_LOCATION svnadmin
+ENV SVN_HOT_BACKUPS /data/svn/backups/
+ENV SVN_REPOS /var/lib/svn/repos/
 
 #Load cig module
 RUN echo 'LoadModule cgid_module /usr/lib/apache2/modules/mod_cgid.so' >> /etc/apache2/apache2.conf
@@ -69,5 +71,18 @@ RUN chmod 777 /var/www/html/ifadmin/data
 # Expose apache.
 EXPOSE 80
 
-# By default, simply start apache.
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+
+# 复制配置文件 /var/spool/cron/crontabs/
+ADD root_crontab /var/spool/cron/crontabs/root
+ADD hotcopy_svn.sh /root/
+# 设置文件所有者和文件关联组为 root:crontab ，关联组必须为 crontab
+RUN chown -R root:crontab /var/spool/cron/crontabs/root \
+# 修改文件的权限，必须为 600，否则不认
+ && chmod 600 /var/spool/cron/crontabs/root
+# 创建 log 文件
+RUN touch /var/log/cron.log
+
+# 在 entrypoint.sh 脚本里加入启动 apache 和 crontab 的相关命令
+RUN chmod 777 ./entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]

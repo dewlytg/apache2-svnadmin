@@ -1,0 +1,1 @@
+0 2 * * * /root/hotcopy_svn.sh >> /dev/null 2>&1
