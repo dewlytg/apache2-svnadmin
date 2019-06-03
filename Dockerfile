@@ -19,7 +19,7 @@ RUN apt update && \
     bash -c 'mkdir -p /var/lib/svn/{conf,repos,cgi}' && \
     touch /var/lib/svn/conf/davsvn.passwd && \
     touch /var/lib/svn/conf/davsvn.authz && \
-    chown www-data /var/lib/svn && \
+    chown -R www-data /var/lib/svn && \
     a2dismod -f autoindex
 
 
@@ -51,7 +51,7 @@ RUN echo '\n\
  </location>\n\
 
 \n\
-ScriptAlias /svnadmin /var/lib/svn/cgi/admin.cgi\n\
+ScriptAlias /${SVN_ADMIN_LOCATION} /var/lib/svn/cgi/admin.cgi\n\
 <location /${SVN_ADMIN_LOCATION}>\n\
     Options +ExecCGI\n\
     Order allow,deny\n\
