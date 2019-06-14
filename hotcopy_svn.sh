@@ -8,6 +8,7 @@ HotcopyDir=$HotcopyRootDir$(date +%a)/repos
 echo "svn dir [$SvnDir]"
 echo "hotcopy dir [$HotcopyDir]"
 
+rm -rf $HotcopyRootDir$(date +%a).tar.gz
 mkdir -p $HotcopyDir
 
 ls $SvnDir | while read repo; do
@@ -16,6 +17,6 @@ ls $SvnDir | while read repo; do
     svnadmin hotcopy $SvnDir/$repo $HotcopyDir/$repo
 done
 
-tar -zcf HotcopyRootDir$(date +%a).tar.gz $HotcopyRootDir$(date +%a)/repos
+tar -zcf $HotcopyRootDir$(date +%a).tar.gz $HotcopyRootDir$(date +%a)/repos
 
 rm -rf $HotcopyDir
